@@ -1,0 +1,27 @@
+name: train-my-model
+
+on: [push]
+
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    container: docker://dvcorg/cml-py3:latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: cml_run
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip3 install -r colab_requirements.txt
+          python mitha1.py
+          python mitha2.py
+          sh johnny.sh
+          python mitha3.py
+          python mitha4.py
+          
+          
+          
+          cml-publish result_images/image.png --md --title 'Color' >> color.md
+          cml-send-comment color.md 
