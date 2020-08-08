@@ -14,7 +14,7 @@ jobs:
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          sudo -H pip3 install -r colab_requirements.txt
+          pip install -r colab_requirements.txt
           python mitha1.py
           python mitha2.py
           sh johnny.sh
