@@ -14,7 +14,7 @@ jobs:
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pip install $(grep -ivE "Bottleneck" action_requirements.txt)
+          pip install $(grep -ivE "bottleneck" action_requirements.txt)
           python mitha1.py
           python mitha2.py
           sh johnny.sh
