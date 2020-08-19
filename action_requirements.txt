@@ -1,4 +1,6 @@
-fastai==1.0.51
-opencv-python>=3.3.0.10
 pillow
+opencv-python>=3.3.0.10
 torch
+fastai
+
+
