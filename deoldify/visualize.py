@@ -16,6 +16,26 @@ from io import BytesIO
 import base64
 import cv2
 
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+        suffix      - Optional  : suffix string (Str)
+        decimals    - Optional  : positive number of decimals in percent complete (Int)
+        length      - Optional  : character length of bar (Int)
+        fill        - Optional  : bar fill character (Str)
+        printEnd    - Optional  : end character (e.g. "\r", "\r\n") (Str)
+    """
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * filledLength + '-' * (length - filledLength)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = printEnd)
+    # Print New Line on Complete
+    if iteration == total: 
+        print()
 
 # adapted from https://www.pyimagesearch.com/2016/04/25/watermarking-images-with-opencv-and-python/
 def get_watermarked(pil_image: Image) -> Image:
@@ -257,8 +277,9 @@ class VideoColorizer:
         colorframes_folder.mkdir(parents=True, exist_ok=True)
         self._purge_images(colorframes_folder)
         bwframes_folder = self.bwframes_root / (source_path.stem)
-
-        for img in os.listdir(str(bwframes_folder)):
+        items = os.listdir(str(bwframes_folder))
+        printProgressBar(0, len(items), prefix = 'Progress:', suffix = 'Complete', length = 50)
+        for i, img in items:
             img_path = bwframes_folder / img
 
             if os.path.isfile(str(img_path)):
@@ -266,6 +287,7 @@ class VideoColorizer:
                     str(img_path), render_factor=render_factor, post_process=post_process,watermarked=watermarked
                 )
                 color_image.save(str(colorframes_folder / img))
+                printProgressBar(i + 1, len(items), prefix = 'Progress:', suffix = 'Complete', length = 50)
 
     def _build_video(self, source_path: Path) -> Path:
         print("BUILDING VIDEO NOW")
