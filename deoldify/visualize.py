@@ -258,7 +258,7 @@ class VideoColorizer:
         self._purge_images(colorframes_folder)
         bwframes_folder = self.bwframes_root / (source_path.stem)
 
-        for img in progress_bar(os.listdir(str(bwframes_folder))):
+        for img in os.listdir(str(bwframes_folder)):
             img_path = bwframes_folder / img
 
             if os.path.isfile(str(img_path)):
