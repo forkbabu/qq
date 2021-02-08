@@ -14,9 +14,6 @@ import gc
 import requests
 from io import BytesIO
 import base64
-from IPython import display as ipythondisplay
-from IPython.display import HTML
-from IPython.display import Image as ipythonimage
 import cv2
 
 
@@ -415,21 +412,3 @@ def get_artistic_image_colorizer(
     vis = ModelImageVisualizer(filtr, results_dir=results_dir)
     return vis
 
-
-def show_image_in_notebook(image_path: Path):
-    ipythondisplay.display(ipythonimage(str(image_path)))
-
-
-def show_video_in_notebook(video_path: Path):
-    video = io.open(video_path, 'r+b').read()
-    encoded = base64.b64encode(video)
-    ipythondisplay.display(
-        HTML(
-            data='''<video alt="test" autoplay 
-                loop controls style="height: 400px;">
-                <source src="data:video/mp4;base64,{0}" type="video/mp4" />
-             </video>'''.format(
-                encoded.decode('ascii')
-            )
-        )
-    )
