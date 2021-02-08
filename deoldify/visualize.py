@@ -1,4 +1,5 @@
 from fastai.core import *
+from tqdm import tqdm
 from fastai.vision import *
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
@@ -256,7 +257,7 @@ class VideoColorizer:
         colorframes_folder.mkdir(parents=True, exist_ok=True)
         self._purge_images(colorframes_folder)
         bwframes_folder = self.bwframes_root / (source_path.stem)
-        for img in os.listdir(str(bwframes_folder)):
+        for img in tqdm(iter(os.listdir(str(bwframes_folder)))):
             img_path = bwframes_folder / img
 
             if os.path.isfile(str(img_path)):
