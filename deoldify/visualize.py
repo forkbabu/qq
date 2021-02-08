@@ -239,6 +239,7 @@ class VideoColorizer:
             ydl.download([source_url])
 
     def _extract_raw_frames(self, source_path: Path):
+        print("EXTRACTING RAW B/W FRAMES NOW")
         bwframes_folder = self.bwframes_root / (source_path.stem)
         bwframe_path_template = str(bwframes_folder / '%5d.jpg')
         bwframes_folder.mkdir(parents=True, exist_ok=True)
@@ -251,6 +252,7 @@ class VideoColorizer:
         self, source_path: Path, render_factor: int = None, post_process: bool = True,
         watermarked: bool = True,
     ):
+        print("COLORIZING RAW FRAMES NOW")
         colorframes_folder = self.colorframes_root / (source_path.stem)
         colorframes_folder.mkdir(parents=True, exist_ok=True)
         self._purge_images(colorframes_folder)
@@ -266,6 +268,7 @@ class VideoColorizer:
                 color_image.save(str(colorframes_folder / img))
 
     def _build_video(self, source_path: Path) -> Path:
+        print("BUILDING VIDEO NOW")
         colorized_path = self.result_folder / (
             source_path.name.replace('.mp4', '_no_audio.mp4')
         )
