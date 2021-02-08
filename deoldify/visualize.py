@@ -279,7 +279,7 @@ class VideoColorizer:
         bwframes_folder = self.bwframes_root / (source_path.stem)
         items = os.listdir(str(bwframes_folder))
         printProgressBar(0, len(items), prefix = 'Progress:', suffix = 'Complete', length = 50)
-        for i, img in items:
+        for i, img in enumerate(items):
             img_path = bwframes_folder / img
 
             if os.path.isfile(str(img_path)):
